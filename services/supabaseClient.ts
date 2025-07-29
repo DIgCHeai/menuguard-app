@@ -27,7 +27,7 @@ export interface Database {
           status: string
           analysis_type: string
           input_text: string
-          result: any
+          result: Json
           allergies: string
           preferences: string
         }
@@ -38,7 +38,7 @@ export interface Database {
           status: string
           analysis_type: string
           input_text: string
-          result: any
+          result: Json
           allergies: string
           preferences: string
         }
@@ -49,7 +49,7 @@ export interface Database {
           status?: string
           analysis_type?: string
           input_text?: string
-          result?: any
+          result?: Json
           allergies?: string
           preferences?: string
         }

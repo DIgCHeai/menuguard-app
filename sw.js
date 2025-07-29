@@ -41,9 +41,10 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Don't try to cache API calls to Google services for dynamic content
     const url = new URL(event.request.url);
-    if (url.hostname.includes('googleapis.com') || url.hostname.includes('google.com')) {
+    // Don't try to cache API calls to Google services or our own Netlify functions.
+    // These should always be fetched from the network.
+    if (url.hostname.includes('googleapis.com') || url.hostname.includes('google.com') || url.pathname.includes('/.netlify/functions/')) {
         // Just fetch from the network, don't cache
         return;
     }
