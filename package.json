@@ -1,9 +1,0 @@
-{
-  "name": "menu-guard-app",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Menu Guard: Allergy Safe Dining Assistant",
-  "dependencies": {
-    "@google/genai": "^1.7.0"
-  }
-}
