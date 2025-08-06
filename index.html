@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Guard</title>
+    
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#166534" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^18.2.0",
+    "react-dom": "https://esm.sh/react-dom@^18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@^18.2.0/client",
+    "react/": "https://esm.sh/react@^18.2.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.7.0",
+    "jsqr": "https://esm.sh/jsqr@1.4.0",
+    "react-dom/": "https://esm.sh/react-dom@^18.2.0/",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.45.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-gray-50">
+    <div id="modal-root"></div>
+    <div id="root"></div>
+
+    <!-- 
+      This is for testing purposes only. 
+      In a real application, keys should be kept on a secure server.
+      The Gemini API Key is configured via environment variables.
+      The Google Places API key will be loaded dynamically.
+    -->
+    
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          // Use a root-relative path ('/sw.js') to ensure the service worker
+          // script is always resolved from the application's origin, which
+          // is more robust in sandboxed environments.
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
