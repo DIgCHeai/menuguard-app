@@ -1,0 +1,29 @@
+{
+  "short_name": "Menu Guard",
+  "name": "Menu Guard: Allergy Safe Dine",
+  "description": "Your guide to allergy-safe dining. Instantly analyze any restaurant menu for allergens and dietary restrictions.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#166534",
+  "background_color": "#f9fafb"
+}
