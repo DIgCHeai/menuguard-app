@@ -1,9 +1,0 @@
-{
-  "requestFramePermissions": [
-    "camera",
-    "geolocation"
-  ],
-  "name": "Allergy Safe Dine",
-  "description": "",
-  "prompt": ""
-}
