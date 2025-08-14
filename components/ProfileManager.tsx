@@ -1,16 +1,29 @@
 // components/ProfileManager.tsx
 import React, { useState } from 'react';
-import authService from '../services/authService'; // adjust path as needed
+import authService from '../services/authService';
 
-const ProfileSettings = ({ onUserUpdate, onClose }) => {
-  const [username, setUsername] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [preferences, setPreferences] = useState('');
-  const [error, setError] = useState(null);
+type User = {
+  username: string;
+  allergies: string;
+  preferences?: string;
+};
+
+type ProfileSettingsProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  user: User;
+  onUserUpdate: (user: User) => void;
+};
+
+const ProfileSettings: React.FC<ProfileSettingsProps> = ({ isOpen, onClose, user, onUserUpdate }) => {
+  const [username, setUsername] = useState(user.username || '');
+  const [allergies, setAllergies] = useState(user.allergies || '');
+  const [preferences, setPreferences] = useState(user.preferences || '');
+  const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
-    if (!username?.trim() || !allergies?.trim()) {
+    if (!username.trim() || !allergies.trim()) {
       setError("Username and allergies cannot be empty.");
       return;
     }
@@ -26,6 +39,8 @@ const ProfileSettings = ({ onUserUpdate, onClose }) => {
       setIsSaving(false);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div>
