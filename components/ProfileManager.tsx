@@ -1,4 +1,3 @@
-// components/ProfileManager.tsx
 import React, { useState } from 'react';
 import authService from '../services/authService';
 
@@ -44,7 +43,6 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ isOpen, onClose, user
 
   return (
     <div>
-      {/* Add your form UI here */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <button onClick={handleSave} disabled={isSaving}>
         {isSaving ? 'Saving...' : 'Save'}
