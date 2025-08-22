@@ -151,22 +151,25 @@ const App: React.FC = () => {
             return;
         }
 
-        // Client-side check for analysis limit for better UX
-        if (currentUser && !currentUser.is_pro && currentUser.max_analyses_per_month !== null) {
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            const analysesThisMonth = currentUser.analysisHistory.filter(h => {
-                const historyDate = new Date(h.created_at);
-                return historyDate.getMonth() === currentMonth && historyDate.getFullYear() === currentYear;
-            }).length;
+// Client-side check for analysis limit for better UX
+if (currentUser && !currentUser.is_pro) {
+    const maxAnalyses = currentUser.max_analyses_per_month;
+    if (maxAnalyses != null) {
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        const analysesThisMonth = currentUser.analysisHistory?.filter(h => {
+            const historyDate = new Date(h.created_at);
+            return historyDate.getMonth() === currentMonth && historyDate.getFullYear() === currentYear;
+        })?.length || 0; // Safely handle undefined analysisHistory
 
-if (currentUser && currentUser.max_analyses_per_month !== undefined && analysesThisMonth >= currentUser.max_analyses_per_month) {
-  setError(`You have reached your monthly analysis limit of ${currentUser.max_analyses_per_month}`);
-  return;
-} else if (!currentUser || currentUser.max_analyses_per_month === undefined) {
-  setError("Unable to determine your analysis limit. Please contact support.");
-  return;
-}
+        if (analysesThisMonth >= maxAnalyses) {
+            setError(`You have reached your monthly analysis limit of ${maxAnalyses}. Upgrade to Pro for unlimited analyses.`);
+            return;
+        }
+    } else {
+        setError("Unable to determine your analysis limit. Please contact support.");
+        return;
+    }
         }
 
         setError(null);
