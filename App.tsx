@@ -160,10 +160,13 @@ const App: React.FC = () => {
                 return historyDate.getMonth() === currentMonth && historyDate.getFullYear() === currentYear;
             }).length;
 
-            if (analysesThisMonth >= currentUser.max_analyses_per_month) {
-                setError(`You have reached your monthly analysis limit of ${currentUser.max_analyses_per_month}. Upgrade to Pro for unlimited analyses.`);
-                return;
-            }
+if (currentUser && currentUser.max_analyses_per_month !== undefined && analysesThisMonth >= currentUser.max_analyses_per_month) {
+  setError(`You have reached your monthly analysis limit of ${currentUser.max_analyses_per_month}`);
+  return;
+} else if (!currentUser || currentUser.max_analyses_per_month === undefined) {
+  setError("Unable to determine your analysis limit. Please contact support.");
+  return;
+}
         }
 
         setError(null);
