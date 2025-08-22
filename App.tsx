@@ -101,7 +101,7 @@ const App: React.FC = () => {
         }
         const config: AppConfig = await response.json();
         setAppConfig(config);
-
+        console.log('AppConfig set:', config); // Debug log
         initSupabase(config.supabaseUrl, config.supabaseAnonKey);
         const supabase = getSupabaseClient();
 
@@ -113,11 +113,13 @@ const App: React.FC = () => {
             } else if (session?.user) {
               const userProfile = await authService.getUserProfile(session.user);
               setCurrentUser(userProfile);
+              console.log('Current User set:', userProfile); // Debug log
               if (event === 'SIGNED_IN') {
                 setIsAuthModalOpen(false);
               }
             } else if (event === 'SIGNED_OUT') {
               setCurrentUser(null);
+              console.log('Current User cleared'); // Debug log
             }
           }
         );
@@ -147,7 +149,6 @@ const App: React.FC = () => {
       return;
     }
 
-    // Client-side check for analysis limit for better UX
     if (currentUser && !currentUser.is_pro) {
       const maxAnalyses = currentUser.max_analyses_per_month;
       if (maxAnalyses != null) {
@@ -198,7 +199,8 @@ const App: React.FC = () => {
 
         if (currentUser) {
           const updatedUser = await authService.addAnalysisToHistory(currentUser, results, currentAllergies, currentPreferences, target);
-          setCurrentUser(updatedUser); // Ensure type compatibility
+          setCurrentUser(updatedUser);
+          console.log('Updated User after analysis:', updatedUser); // Debug log
         }
       }
     } catch (err) {
@@ -209,6 +211,7 @@ const App: React.FC = () => {
         setError(errorMessage);
       }
       setAnalysisResults(null);
+      console.error('Analysis error:', err); // Debug log
     } finally {
       setIsLoadingAnalysis(false);
       setAnalysisTarget(null);
@@ -242,7 +245,10 @@ const App: React.FC = () => {
     );
   }, []);
 
-  const updateUserState = (user: User) => setCurrentUser(user);
+  const updateUserState = (user: User) => {
+    setCurrentUser(user);
+    console.log('User state updated:', user); // Debug log
+  };
   const handleLoginClick = () => {
     setAuthMode('login');
     setIsAuthModalOpen(true);
@@ -254,6 +260,7 @@ const App: React.FC = () => {
     setConversationHistory(null);
     setAnalysisResults(null);
     setShowProfileDropdown(false);
+    console.log('User logged out'); // Debug log
   };
   const handleLoginSuccess = (user: User) => {
     updateUserState(user);
@@ -270,6 +277,7 @@ const App: React.FC = () => {
   const handleHistoryUpdate = (updatedHistory: AnalysisHistoryEntry[]) => {
     if (currentUser) {
       setCurrentUser({ ...currentUser, analysisHistory: updatedHistory });
+      console.log('History updated:', updatedHistory); // Debug log
     }
   };
   const handleGetStartedClick = () => mainContentRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -308,6 +316,7 @@ const App: React.FC = () => {
       setConversationHistory((prev) =>
         prev ? [...prev, { role: 'model', content: errorMessage }] : [{ role: 'model', content: errorMessage }]
       );
+      console.error('Chat error:', err); // Debug log
     } finally {
       setIsChatLoading(false);
     }
