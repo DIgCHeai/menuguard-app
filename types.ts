@@ -56,7 +56,7 @@ export interface User {
     id: string; // The user's UUID from auth.users
     email: string;
     is_pro: boolean | null;
-    username: string | null;
+    username: string;
     allergies: string | null;
     preferences?: string | null;
     max_analyses_per_month?: number | null;
