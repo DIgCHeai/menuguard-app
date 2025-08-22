@@ -111,7 +111,7 @@ export const getUserProfile = async (user: { id: string; email?: string }): Prom
             email: user.email || '', // Safer handling
             is_pro: newProfile!.is_pro,
             username: newProfile!.username || usernameFallback,
-            allergies: newProfile!.allergies,
+            allergies: newProfile!.allergies || DEFAULT_ALLERGIES,
             preferences: newProfile!.preferences,
             max_analyses_per_month: newProfile!.max_analyses_per_month,
             analysisHistory: [] // New profiles have no history
@@ -157,7 +157,7 @@ export const getUserProfile = async (user: { id: string; email?: string }): Prom
         email: user.email || '', // Safer handling
         is_pro: profile!.is_pro,
         username: profile!.username || usernameFallback,
-        allergies: profile!.allergies,
+        allergies: profile!.allergies || '',
         preferences: profile!.preferences,
         max_analyses_per_month: profile!.max_analyses_per_month,
         analysisHistory: analysisHistory,

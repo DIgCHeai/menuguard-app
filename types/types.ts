@@ -57,7 +57,7 @@ export interface User {
     email: string;
     is_pro: boolean | null;
     username: string;
-    allergies: string | null;
+    allergies: string;
     preferences?: string | null;
     max_analyses_per_month?: number | null;
     analysisHistory: AnalysisHistoryEntry[]; // History can be joined from the `analysis_history` table.
