@@ -62,6 +62,12 @@ export interface User {
   analysisHistory: AnalysisHistoryEntry[]; // Single definition for history
 }
 
+// In types.ts, add this before the Restaurant interface
+export interface AppConfig {
+  supabaseUrl: string;
+  supabaseAnonKey: string;
+}
+
 // Type for a restaurant found via Google Places API
 export interface Restaurant {
   place_id: string;
