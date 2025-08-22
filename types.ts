@@ -54,13 +54,12 @@ export interface AnalysisHistoryEntry {
 // Updated User interface, aligned with the `profiles` table in supabase_schema.sql
 export interface User {
     id: string; // The user's UUID from auth.users
+    email: string;
+    is_pro: boolean | null;
     username: string | null;
-	email: string | null;
-	allergies: string | null;
-	preferences?: string | null;
-	is_pro: boolean;
-	analysisHistory: AnalysisHistoryEntry[];
-	max_analyses_per_month?: number | null;
+    allergies: string | null;
+    preferences?: string | null;
+    max_analyses_per_month?: number | null;
     analysisHistory: AnalysisHistoryEntry[]; // History can be joined from the `analysis_history` table.
 }
 
